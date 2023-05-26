@@ -23,7 +23,7 @@ class App
     print "No people found\n" if @people.empty?
 
     @people.each do |person|
-        role = person.is_a?(Teacher) ? 'Teacher' : 'Student'
+      role = person.is_a?(Teacher) ? 'Teacher' : 'Student'
       puts "[#{role}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
   end
@@ -41,8 +41,7 @@ class App
     case person_role
     when 1
       print 'Has parent permission? [Y/N]: '
-      parent_permission_input = gets.chomp.downcase
-      parent_permission = parent_permission_input == 'y'
+      gets.chomp.downcase
 
       @people << Student.new(age, nil, name)
       puts "Student Created Successfully\n"
@@ -94,7 +93,7 @@ class App
     print 'ID of the person: '
     id = gets.chomp.to_i
 
-    puts "Rentals: "  
+    puts 'Rentals: '
     @rentals.each do |rental|
       puts "Date: #{rental.date}, Book: \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == id
     end
