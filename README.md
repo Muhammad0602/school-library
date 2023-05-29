@@ -96,6 +96,11 @@ To get a local copy of this project up and running, follow these steps.
 - GitHub: [@Muhammad0602](https://github.com/Muhammad0602)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/muhammad-davlatov-6a8536254/)
 
+👤 **Ayomipo Majek**
+
+- GitHub: [@AyomipoMajek](https://github.com/AyomipoMajek)
+- Linkedin: [@AyomipoMajek](https://www.linkedin.com/in/ayomipomajek/)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
