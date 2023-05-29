@@ -41,23 +41,7 @@ class App
 
     case person_role
     when 1
-      age = nil
-      loop do
-        print 'Age: '
-        input = gets.chomp
-        if input.match?(/^\d+$/)
-          age = input.to_i
-          break
-        else
-          puts 'Please enter a valid age.'
-        end
-      end
-      print 'Name: '
-      name = gets.chomp
-      print 'Has parent permission? [Y/N]: '
-      gets.chomp.downcase
-
-      @people << Student.new(age, nil, name)
+      create_student
       puts "Student Created Successfully\n"
     when 2
       print 'Age: '
@@ -73,6 +57,26 @@ class App
     else
       puts 'Invalid number. Person creation failed'
     end
+  end
+
+  def create_student
+    age = nil
+    loop do
+      print 'Age: '
+      input = gets.chomp
+      if input.match?(/^\d+$/)
+        age = input.to_i
+        break
+      else
+        puts 'Please enter a valid age.'
+      end
+    end
+    print 'Name: '
+    name = gets.chomp
+    print 'Has parent permission? [Y/N]: '
+    gets.chomp.downcase
+
+    @people << Student.new(age, nil, name)
   end
 
   def create_book
