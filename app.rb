@@ -44,13 +44,7 @@ class App
       create_student
       puts "Student Created Successfully\n"
     when 2
-      print 'Age: '
-      age = gets.chomp
-      print 'Name: '
-      name = gets.chomp
-      print 'Specialization: '
-      specialization = gets.chomp
-      @people << Teacher.new(age, specialization, name)
+      create_teacher
       puts "Teacher Created Successfully\n"
     when 0
       puts 'Person creation canceled!'
@@ -60,23 +54,37 @@ class App
   end
 
   def create_student
-    age = nil
-    loop do
-      print 'Age: '
-      input = gets.chomp
-      if input.match?(/^\d+$/)
-        age = input.to_i
-        break
-      else
-        puts 'Please enter a valid age.'
-      end
-    end
+    age = age_validation
     print 'Name: '
     name = gets.chomp
     print 'Has parent permission? [Y/N]: '
     gets.chomp.downcase
 
     @people << Student.new(age, nil, name)
+  end
+
+  def create_teacher
+    age = age_validation
+    print 'Name: '
+    name = gets.chomp
+    print 'Specialization: '
+    specialization = gets.chomp
+    @people << Teacher.new(age, specialization, name)
+  end
+
+  def age_validation
+    age = nil
+    loop do
+      print 'Age: '
+      input = gets.chomp
+      if input.match?(/^\d+$/) && input.to_i < 120
+        age = input.to_i
+        break
+      else
+        puts 'Please enter a valid age.'
+      end
+    end
+    age
   end
 
   def create_book
@@ -95,33 +103,43 @@ class App
       puts 'No books available at the moment!'
       return
     end
-    puts 'Select a book from the following list by number'
-
-    @books.each_with_index do |book, index|
-      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
-    end
-    book = gets.chomp.to_i
+    selected_book = select_book
 
     if @people.empty?
       puts 'Rental Creation Failed!'
       puts 'No people available to rent at the moment!'
       return
     end
+    selected_person = select_person
 
+    date = get_date
+
+    @rentals << Rental.new(date, selected_book, selected_person)
+    puts 'Rental created successfully'
+  end
+
+  def select_book
+    puts 'Select a book from the following list by number'
+    @books.each_with_index do |book, index|
+      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+    end
+    book_index = gets.chomp.to_i
+    @books[book_index]
+  end
+
+  def select_person
     puts 'Select a persoon from the following list by number (not id)'
-
     @people.each_with_index do |person, index|
       role = role(person)
       puts "#{index}) [#{role}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
-    person = gets.chomp.to_i
+    person_index = gets.chomp.to_i
+    @people[person_index]
+  end
 
+  def take_date
     print 'Date: '
-    date = gets.chomp
-
-    @rentals << Rental.new(date, @books[book], @people[person])
-
-    puts 'Rental created successfully'
+    gets.chomp
   end
 
   def list_rentals
