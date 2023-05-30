@@ -6,9 +6,19 @@ require './rental'
 
 class App
   def initialize
+    if File.exist?('books.json') && File.exist?('rentals.json') && File.exist?('people.json')
+      books_json = File.read('books.json')
+      rentals_json = File.read('rentals.json') 
+      people_json = File.read('people.json')
+  
+      @books = JSON.parse(books_json)
+      @rentals = JSON.parse(rentals_json)
+      @people = JSON.parse(people_json)
+    else
     @books = []
     @people = []
     @rentals = []
+    end
   end
 
   def list_books
