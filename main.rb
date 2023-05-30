@@ -2,7 +2,7 @@ require './app'
 APP = App.new
 
 class Main
-  puts "Welcome to Shcool Library App\n\n\n"
+  puts "Welcome to our Shcool Library App\n\n"
 
   loop do
     puts 'Please choose an option by entering a number: '
