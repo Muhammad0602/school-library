@@ -1,3 +1,4 @@
+require 'json'
 require './person'
 require './book'
 require './student'
@@ -11,13 +12,21 @@ class App
       rentals_json = File.read('rentals.json')
       people_json = File.read('people.json')
 
-      @books = JSON.parse(books_json)
-      @rentals = JSON.parse(rentals_json)
-      @people = JSON.parse(people_json)
+      @books = JSON.parse(books_json).map { |data| Book.new(data['title'], data['author']) }
+      @rentals = JSON.parse(rentals_json).map { |data| Rental.new(data['date'], data['book'], data['person']) }
+      @people = JSON.parse(people_json).map { |data| create_person_from_data(data) }
     else
       @books = []
       @people = []
       @rentals = []
+    end
+  end
+  
+  def create_person_from_data(data)
+    if data['specialization']
+      Teacher.new(data['age'], data['specialization'], data['name'])
+    else
+      Student.new(data['age'], data['parent_permission'], data['name'])
     end
   end
 
@@ -138,7 +147,7 @@ class App
   end
 
   def select_person
-    puts 'Select a persoon from the following list by number (not id)'
+    puts 'Select a person from the following list by number (not id)'
     @people.each_with_index do |person, index|
       role = role(person)
       puts "#{index}) [#{role}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
@@ -163,6 +172,7 @@ class App
   end
 
   # Saving the data
+
   def save_data
     books_json = @books.to_json
     rentals_json = @rentals.to_json
@@ -172,4 +182,13 @@ class App
     File.write('rentals.json', rentals_json)
     File.write('people.json', people_json)
   end
+
+  # Deleting the data
+
+  def delete_data_files
+    File.delete('books.json') if File.exist?('books.json')
+    File.delete('rentals.json') if File.exist?('rentals.json')
+    File.delete('people.json') if File.exist?('people.json')
+  end
+  
 end

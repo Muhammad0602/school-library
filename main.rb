@@ -30,6 +30,8 @@ class Main
     when 6
       APP.list_rentals
     when 7
+      # APP.delete_data_files
+      APP.save_data
       puts 'Thanks for using our app!'
       break
     else
