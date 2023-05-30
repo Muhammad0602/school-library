@@ -8,16 +8,16 @@ class App
   def initialize
     if File.exist?('books.json') && File.exist?('rentals.json') && File.exist?('people.json')
       books_json = File.read('books.json')
-      rentals_json = File.read('rentals.json') 
+      rentals_json = File.read('rentals.json')
       people_json = File.read('people.json')
-  
+
       @books = JSON.parse(books_json)
       @rentals = JSON.parse(rentals_json)
       @people = JSON.parse(people_json)
     else
-    @books = []
-    @people = []
-    @rentals = []
+      @books = []
+      @people = []
+      @rentals = []
     end
   end
 
@@ -162,17 +162,14 @@ class App
     end
   end
 
-# Saving the data 
-def save_data
-  books_json = @books.to_json
-  rentals_json = @rentals.to_json
-  people_json = @people.to_json
+  # Saving the data
+  def save_data
+    books_json = @books.to_json
+    rentals_json = @rentals.to_json
+    people_json = @people.to_json
 
-  File.write('books.json', books_json)
-  File.write('rentals.json', rentals_json)
-  File.write('people.json', people_json)
-end
-
-
-
+    File.write('books.json', books_json)
+    File.write('rentals.json', rentals_json)
+    File.write('people.json', people_json)
+  end
 end
