@@ -112,7 +112,7 @@ class App
     end
     selected_person = select_person
 
-    date = get_date
+    date = take_date
 
     @rentals << Rental.new(date, selected_book, selected_person)
     puts 'Rental created successfully'
