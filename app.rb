@@ -151,4 +151,18 @@ class App
       puts "Date: #{rental.date}, Book: \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == id
     end
   end
+
+# Saving the data 
+def save_data
+  books_json = @books.to_json
+  rentals_json = @rentals.to_json
+  people_json = @people.to_json
+
+  File.write('books.json', books_json)
+  File.write('rentals.json', rentals_json)
+  File.write('people.json', people_json)
+end
+
+
+
 end
