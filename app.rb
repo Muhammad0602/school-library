@@ -7,21 +7,25 @@ require './rental'
 
 class App
   def initialize
-    if File.exist?('books.json') && File.exist?('rentals.json') && File.exist?('people.json')
-      books_json = File.read('books.json')
-      rentals_json = File.read('rentals.json')
-      people_json = File.read('people.json')
+    if File.exist?('storage/books.json') && File.exist?('storage/rentals.json') && File.exist?('storage/people.json')
+      books_json = File.read('storage/books.json')
+      rentals_json = File.read('storage/rentals.json')
+      people_json = File.read('storage/people.json')
 
-      @books = JSON.parse(books_json).map { |data| Book.new(data['title'], data['author']) }
-      @rentals = JSON.parse(rentals_json).map { |data| Rental.new(data['date'], data['book'], data['person']) }
-      @people = JSON.parse(people_json).map { |data| create_person_from_data(data) }
+      @books = JSON.parse(books_json).map { |data| Book.new(data['title'], data['author']) } unless books_json.empty?
+      unless rentals_json.empty?
+        @rentals = JSON.parse(rentals_json).map do |data|
+          Rental.new(data['date'], data['book'], data['person'])
+        end
+      end
+      @people = JSON.parse(people_json).map { |data| create_person_from_data(data) } unless people_json.empty?
     else
       @books = []
       @people = []
       @rentals = []
     end
   end
-  
+
   def create_person_from_data(data)
     if data['specialization']
       Teacher.new(data['age'], data['specialization'], data['name'])
@@ -178,17 +182,16 @@ class App
     rentals_json = @rentals.to_json
     people_json = @people.to_json
 
-    File.write('books.json', books_json)
-    File.write('rentals.json', rentals_json)
-    File.write('people.json', people_json)
+    File.write('storage/books.json', books_json)
+    File.write('storage/rentals.json', rentals_json)
+    File.write('storage/people.json', people_json)
   end
 
   # Deleting the data
 
   def delete_data_files
-    File.delete('books.json') if File.exist?('books.json')
-    File.delete('rentals.json') if File.exist?('rentals.json')
-    File.delete('people.json') if File.exist?('people.json')
+    FileUtils.rm_f('storage/books.json')
+    FileUtils.rm_f('storage/rentals.json')
+    FileUtils.rm_f('storage/people.json')
   end
-  
 end
