@@ -8,21 +8,41 @@ require './rental'
 class App
   def initialize
     if File.exist?('storage/books.json') && File.exist?('storage/rentals.json') && File.exist?('storage/people.json')
-      # books_json = File.read('storage/books.json')
-      # rentals_json = File.read('storage/rentals.json')
-      # people_json = File.read('storage/people.json')
-
-      @books = JSON.parse(File.read('storage/books.json'))
-      @rentals = JSON.parse(File.read('storage/rentals.json'))
-      @people = JSON.parse(File.read('storage/people.json'))
-
-      # @books = JSON.parse(books_json).map { |data| Book.new(data['title'], data['author']) } unless books_json.empty?
-      # unless rentals_json.empty?
-      #   @rentals = JSON.parse(rentals_json).map do |data|
-      #     Rental.new(data['date'], data['book'], data['person'])
-      #   end
-      # end
-      # @people = JSON.parse(people_json).map { |data| create_person_from_data(data) } unless people_json.empty?
+      books_json = File.read('storage/books.json')
+      rentals_json = File.read('storage/rentals.json')
+      people_json = File.read('storage/people.json')
+  
+      @books = []
+      @rentals = []
+      @people = []
+  
+      unless books_json.empty?
+        books_data = JSON.parse(books_json)
+        books_data.each do |data|
+          book = Book.new(data['title'], data['author'])
+          @books << book
+        end
+      end
+  
+      unless rentals_json.empty?
+        rentals_data = JSON.parse(rentals_json)
+        rentals_data.each do |data|
+          book_data = data['book']
+          person_data = data['person']
+          book = @books.find { |b| b.title == book_data['title'] && b.author == book_data['author'] }
+          person = create_person_from_data(person_data)
+          rental = Rental.new(data['date'], book, person)
+          @rentals << rental
+        end
+      end
+  
+      unless people_json.empty?
+        people_data = JSON.parse(people_json)
+        people_data.each do |data|
+          person = create_person_from_data(data)
+          @people << person
+        end
+      end
     else
       @books = []
       @people = []
@@ -30,13 +50,13 @@ class App
     end
   end
 
-  # def create_person_from_data(data)
-  #   if data['specialization']
-  #     Teacher.new(data['age'], data['specialization'], data['name'])
-  #   else
-  #     Student.new(data['age'], data['parent_permission'], data['name'])
-  #   end
-  # end
+  def create_person_from_data(data)
+    if data['specialization']
+      Teacher.new(data['age'], data['specialization'], data['name'])
+    else
+      Student.new(data['age'], data['parent_permission'], data['name'])
+    end
+  end
 
   def list_books
     print "No books found\n" if @books.empty?
