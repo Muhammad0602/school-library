@@ -6,9 +6,24 @@ class Rental
     @date = date
 
     @book = book
-    book.rentals << self if book
-
+    # book.rentals << self 
+ 
     @person = person
-    person.rentals << self if person
+    # person.rentals << self 
+  end
+
+  def to_hash
+    {
+      date: @date,
+      book: {
+        title: @book.title,
+        author: @book.author
+      },
+      person: {
+        id: @person.id,
+        age: @person.age,
+        name: @person.name
+      }
+    }
   end
 end
