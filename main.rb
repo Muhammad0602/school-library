@@ -1,5 +1,8 @@
 require './app'
-APP = App.new
+require './loader'
+
+loader = Loader.new
+APP = App.new(loader.books, loader.people, loader.rentals)
 
 class Main
   puts "Welcome to our Shcool Library App\n\n"
@@ -30,6 +33,8 @@ class Main
     when 6
       APP.list_rentals
     when 7
+      # APP.delete_data_files
+      APP.save_data
       puts 'Thanks for using our app!'
       break
     else

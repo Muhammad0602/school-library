@@ -1,14 +1,16 @@
+require 'json'
 require './person'
 require './book'
 require './student'
 require './teacher'
 require './rental'
+require './loader'
 
 class App
-  def initialize
-    @books = []
-    @people = []
-    @rentals = []
+  def initialize(books, people, rentals)
+    @books = books
+    @people = people
+    @rentals = rentals
   end
 
   def list_books
@@ -128,7 +130,7 @@ class App
   end
 
   def select_person
-    puts 'Select a persoon from the following list by number (not id)'
+    puts 'Select a person from the following list by number (not id)'
     @people.each_with_index do |person, index|
       role = role(person)
       puts "#{index}) [#{role}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
@@ -150,5 +152,25 @@ class App
     @rentals.each do |rental|
       puts "Date: #{rental.date}, Book: \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == id
     end
+  end
+
+  # Saving the data
+
+  def save_data
+    books_json = @books.map(&:to_hash)
+    rentals_json = @rentals.map(&:to_hash)
+    people_json = @people.map(&:to_hash)
+
+    File.write('storage/books.json', JSON.generate(books_json))
+    File.write('storage/rentals.json', JSON.generate(rentals_json))
+    File.write('storage/people.json', JSON.generate(people_json))
+  end
+
+  # Deleting the data
+
+  def delete_data_files
+    FileUtils.rm_f('storage/books.json')
+    File.delete('storage/rentals.json') if File.exist?('storage/renals.json')
+    FileUtils.rm_f('storage/people.json')
   end
 end
