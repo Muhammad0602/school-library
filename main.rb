@@ -1,6 +1,4 @@
 require './app'
-# APP = App.new
-
 require './loader'
 
 loader = Loader.new
