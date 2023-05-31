@@ -20,7 +20,7 @@ describe Classroom do
       expect(classroom.students).to include(student)
     end
 
-     it 'sets the classroom for the student' do
+    it 'sets the classroom for the student' do
       classroom.add_student(student)
       expect(student.classroom).to eq(classroom)
     end

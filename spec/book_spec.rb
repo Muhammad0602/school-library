@@ -8,7 +8,7 @@ RSpec.describe Book do
       date = '2023-05-31'
       person = instance_double('Person')
       rental = book.add_rental(date, person)
-      
+
       expect(rental).to be_a(Rental)
       expect(book.rentals).to include(rental)
     end
@@ -18,9 +18,9 @@ RSpec.describe Book do
     it 'returns a hash representation of the book' do
       rental = instance_double('Rental', to_hash: { date: '2023-05-31' })
       book.rentals << rental
-      
+
       hash = book.to_hash
-      
+
       expect(hash).to be_a(Hash)
       expect(hash[:title]).to eq('Title')
       expect(hash[:author]).to eq('Author')
