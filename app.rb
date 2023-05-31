@@ -4,58 +4,13 @@ require './book'
 require './student'
 require './teacher'
 require './rental'
+require './loader'
 
 class App
-  def initialize
-    if File.exist?('storage/books.json') && File.exist?('storage/rentals.json') && File.exist?('storage/people.json')
-      books_json = File.read('storage/books.json')
-      rentals_json = File.read('storage/rentals.json')
-      people_json = File.read('storage/people.json')
-  
-      @books = []
-      @rentals = []
-      @people = []
-  
-      unless books_json.empty?
-        books_data = JSON.parse(books_json)
-        books_data.each do |data|
-          book = Book.new(data['title'], data['author'])
-          @books << book
-        end
-      end
-  
-      unless rentals_json.empty?
-        rentals_data = JSON.parse(rentals_json)
-        rentals_data.each do |data|
-          book_data = data['book']
-          person_data = data['person']
-          book = @books.find { |b| b.title == book_data['title'] && b.author == book_data['author'] }
-          person = create_person_from_data(person_data)
-          rental = Rental.new(data['date'], book, person)
-          @rentals << rental
-        end
-      end
-  
-      unless people_json.empty?
-        people_data = JSON.parse(people_json)
-        people_data.each do |data|
-          person = create_person_from_data(data)
-          @people << person
-        end
-      end
-    else
-      @books = []
-      @people = []
-      @rentals = []
-    end
-  end
-
-  def create_person_from_data(data)
-    if data['specialization']
-      Teacher.new(data['age'], data['specialization'], data['name'])
-    else
-      Student.new(data['age'], data['parent_permission'], data['name'])
-    end
+  def initialize(books, people, rentals)
+    @books = books
+    @people = people
+    @rentals = rentals
   end
 
   def list_books
@@ -188,7 +143,7 @@ class App
     print 'Date: '
     gets.chomp
   end
-  
+
   def list_rentals
     print 'ID of the person: '
     id = gets.chomp.to_i
@@ -202,9 +157,9 @@ class App
   # Saving the data
 
   def save_data
-     books_json = @books.map(&:to_hash)
-     rentals_json = @rentals.map(&:to_hash)
-     people_json = @people.map(&:to_hash)
+    books_json = @books.map(&:to_hash)
+    rentals_json = @rentals.map(&:to_hash)
+    people_json = @people.map(&:to_hash)
 
     File.write('storage/books.json', JSON.generate(books_json))
     File.write('storage/rentals.json', JSON.generate(rentals_json))
@@ -214,8 +169,8 @@ class App
   # Deleting the data
 
   def delete_data_files
-   File.delete('storage/books.json') if File.exist?('storage/books.json')
-   File.delete('storage/rentals.json') if File.exist?('storage/renals.json')
-   File.delete('storage/people.json') if File.exist?('storage/people.json')
+    FileUtils.rm_f('storage/books.json')
+    File.delete('storage/rentals.json') if File.exist?('storage/renals.json')
+    FileUtils.rm_f('storage/people.json')
   end
 end
