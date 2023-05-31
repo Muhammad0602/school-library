@@ -1,5 +1,4 @@
 require_relative 'spec_helper'
-require 'rental'
 
 RSpec.describe Book do
   let(:book) { Book.new('Title', 'Author') }

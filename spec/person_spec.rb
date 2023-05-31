@@ -1,7 +1,4 @@
 require_relative 'spec_helper'
-require './nameable'
-require './rental'
-require './person'
 
 RSpec.describe Nameable do
   describe '#initialize' do

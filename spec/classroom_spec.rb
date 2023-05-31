@@ -1,6 +1,4 @@
 require_relative 'spec_helper'
-require './classroom'
-require './student'
 
 RSpec.describe Classroom do
   let(:classroom) { Classroom.new('A') }
