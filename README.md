@@ -4,7 +4,6 @@
 
 </div>
 
-
 # 📗 Table of Contents
 
 - [📖 About the Project](#about-project)
@@ -19,14 +18,14 @@
 - [🙏 Acknowledgements](#acknowledgements)
 - [📝 License](#license)
 
-
 # 📖 School Library <a name="about-project"></a>
 
 School Library is a project, where we will build a school library app using [Ruby](https://www.ruby-lang.org/en/) and OOP. The project will allow us to:
-   1. Add a new student.
-   2. Add a new teacher.
-   3. Add a new book.
-   4. Save records of who borrowed a book.
+
+1.  Add a new student.
+2.  Add a new teacher.
+3.  Add a new book.
+4.  Save records of who borrowed a book.
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -54,26 +53,25 @@ To get a local copy of this project up and running, follow these steps.
 
 - ### Prerequisites
 
-   - In order to run this project locally you need `git` installed. Please got to [Getting Started - Installing Git guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and follow the steps described for your system to install `git`.
-   - Also you must have `Ruby` installed, you can go to the [Installing Ruby](https://www.ruby-lang.org/en/documentation/installation/) documentation and follow the steps for your computer OS.
-
+  - In order to run this project locally you need `git` installed. Please got to [Getting Started - Installing Git guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and follow the steps described for your system to install `git`.
+  - Also you must have `Ruby` installed, you can go to the [Installing Ruby](https://www.ruby-lang.org/en/documentation/installation/) documentation and follow the steps for your computer OS.
 
 - ### Setup
-    Clone this repository to your desired folder:
-    ```sh
-    cd my-folder
-    git clone git@github.com/Muhammad0602/school-library.git
-    ```
+  Clone this repository to your desired folder:
+  ```sh
+  cd my-folder
+  git clone git@github.com/Muhammad0602/school-library.git
+  ```
 - ### Usage
-    In the folder where you cloned the project, go into the project folder
-    ```sh
-    cd school-library
-    ```
+  In the folder where you cloned the project, go into the project folder
+  ```sh
+  cd school-library
+  ```
 - ### Run
-    In the `school-library` folder, use the following code to run the app
-    ```rb
-    ruby person.rb
-    ```
+  In the `school-library` folder, use the following code to run the app
+  ```rb
+  ruby person.rb
+  ```
   - The app will show the following main menu in the console
     ```sh
     Welcome to Ruby School Library App!
@@ -103,13 +101,11 @@ To get a local copy of this project up and running, follow these steps.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 ## 🔭 Future Features <a name="future-features"></a>
 
 - [ ] **[Improving UI design]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 ## 🤝 Contributing <a name="contributing"></a>
 
@@ -119,9 +115,7 @@ Feel free to check the [issues page](../../issues/).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 ## ⭐️ Show your support <a name="support"></a>
-
 
 If you like this project leave it a star!
 
@@ -132,7 +126,6 @@ If you like this project leave it a star!
 I would like to thanks Microverse community.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 ## 📝 License <a name="license"></a>
 
